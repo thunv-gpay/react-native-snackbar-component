@@ -40,7 +40,6 @@ class SnackbarComponent extends Component {
         <Animated.View
           style={[
             styles.container,
-            this.props.containerStyle,
             {
               backgroundColor: this.props.backgroundColor,
               left: this.props.left,
@@ -52,17 +51,18 @@ class SnackbarComponent extends Component {
                 outputRange: [this.state.hideDistance * -1, 0],
               }),
             },
+            this.props.containerStyle,
           ]}
           onLayout={(event) => this.setState({ hideDistance: event.nativeEvent.layout.height })}
         >
           {typeof this.props.textMessage === "function" ? (
             this.props.textMessage()
           ) : (
-            <Text style={[this.props.messageStyle, styles.textMessage, { color: this.props.messageColor }]}>{this.props.textMessage}</Text>
+            <Text style={[styles.textMessage, { color: this.props.messageColor }, this.props.messageStyle]}>{this.props.textMessage}</Text>
           )}
           {this.props.actionHandler !== null && !!this.props.actionText ? (
             <Touchable onPress={this.props.actionHandler}>
-              <Text style={[this.props.actionStyle, styles.actionText, { color: this.props.accentColor }]}>{this.props.actionText.toUpperCase()}</Text>
+              <Text style={[styles.actionText, { color: this.props.accentColor }, this.props.actionStyle]}>{this.props.actionText.toUpperCase()}</Text>
             </Touchable>
           ) : null}
         </Animated.View>
