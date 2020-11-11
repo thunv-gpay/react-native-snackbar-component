@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, Text, Animated, Easing, ViewPropTypes } from "react-native";
+import { StyleSheet, Text, Animated, Easing, ViewPropTypes, View } from "react-native";
 import { Touchable } from "./src";
 
 /* Values are from https://material.io/guidelines/motion/duration-easing.html#duration-easing-dynamic-durations */
@@ -61,7 +61,8 @@ class SnackbarComponent extends Component {
             <Text style={[styles.textMessage, { color: this.props.messageColor }, this.props.messageStyle]}>{this.props.textMessage}</Text>
           )}
           {this.props.actionHandler !== null && !!this.props.actionText ? (
-            <Touchable onPress={this.props.actionHandler}>
+            <Touchable onPress={this.props.actionHandler} style={{flexDirection:'row'}}>
+              {this.props.viewLeftBlank &&  <View style={{flex:1}} />}
               <Text style={[styles.actionText, { color: this.props.accentColor }, this.props.actionStyle]}>{this.props.actionText.toUpperCase()}</Text>
             </Touchable>
           ) : null}
@@ -158,6 +159,7 @@ SnackbarComponent.propTypes = {
   containerStyle: ViewPropTypes.style,
   messageStyle: Text.propTypes.style,
   actionStyle: Text.propTypes.style,
+  viewLeftBlank: PropTypes.bool
 };
 
 const styles = StyleSheet.create({
